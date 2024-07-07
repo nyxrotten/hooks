@@ -1,27 +1,36 @@
 import './App.css';
-import {useState, useEffect} from 'react';
-import axios from 'axios';
+import useFetchCharacters from './hooks/useFecthCharacters';
+
 
 function App() {
   const urlPokemon = 'https://pokeapi.co/api/v2/pokemon/1';
   const urlRick = 'https://rickandmortyapi.com/api/character/1';
 
-  
+  const endPointPokemon = useFetchCharacters(urlPokemon)
+  const endPointRick = useFetchCharacters(urlRick)
 
-const Axios = () => {
-    const [data, setData] = useState(null);
-    useEffect(() => {
-        axios.get(urlPokemon)
-        .then((res) => {
-            setData(res.data)
-        })
-    }, []) 
-  console.log(data.name)
-}
+  const { data, loading, error } = useFetchCharacters(urlPokemon);
+
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+
   
   return (
     <>
-    <p>{Axios()}</p>
+     <div>
+      <h2>Data from PokemonAPI</h2>
+      <h3>{endPointPokemon.data.name}</h3>
+      <img src={endPointPokemon.data.sprites.front_default}/>
+      <h2>Data from Rick&Morty API</h2>
+      <h3>{endPointRick.data.name}</h3>
+      <img src={endPointRick.data.image}/>
+    </div>
     </>
   );
 }
