@@ -1,28 +1,28 @@
 import { useState, useEffect } from 'react';
 
-function useFetchCharacters(apiUrl) {
+function useFetchCharacters(url) {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     const fetchData = async () => {
         try {
-        const response = await fetch(apiUrl);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const result = await response.json();
-        setData(result);
-        setLoading(false);
-    } catch (error) {
-        setError(error);
-        setLoading(false);
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Error de red');
+            }
+            const result = await response.json();
+            setData(result);
+            setLoading(false);
+        } catch (error) {
+            setError(error);
+            setLoading(false);
         }
     };
 
     useEffect(() => {
         fetchData();
-    }, [apiUrl]);
+    }, [url]);
 
     return { data, loading, error };
 }

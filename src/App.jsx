@@ -19,17 +19,15 @@ function App() {
     return <div>Error: {error.message}</div>;
   }
 
-
-  
   return (
     <>
-     <div>
+    <div>
       <h2>Data from PokemonAPI</h2>
-      <h3>{endPointPokemon.data.name}</h3>
-      <img src={endPointPokemon.data.sprites.front_default}/>
+        <h3>{endPointPokemon.data.name}</h3>
+        <img src={endPointPokemon.data.sprites.front_default}/>
       <h2>Data from Rick&Morty API</h2>
-      <h3>{endPointRick.data.name}</h3>
-      <img src={endPointRick.data.image}/>
+        <h3>{endPointRick.data.name}</h3>
+        <img src={endPointRick.data.image}/>
     </div>
     </>
   );
